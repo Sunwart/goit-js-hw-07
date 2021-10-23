@@ -6,8 +6,8 @@ const galleryElem = document.querySelector('.gallery');
 galleryElem.innerHTML = galleryItems
   .map(
     ({ original, preview, description }) =>
-      `<a href="${original}" class="gallery__item"><img src="${preview}" alt="${description}" title="${description}" class="gallery__image"></a>`,
+      `<li class="gallery__item"><a href="${original}" class="gallery__link"><img src="${preview}" alt="${description}" class="gallery__image"></a></li>`,
   )
   .join('');
 
-let gallery = new SimpleLightbox('.gallery a', { captionDelay: 250 });
+let gallery = new SimpleLightbox('.gallery a', { captionsData: 'alt', captionDelay: 250 });
