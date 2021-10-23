@@ -16,28 +16,22 @@ function viewImage(event) {
   if (!event.target.classList.contains('gallery__image')) {
     return;
   }
+
   event.preventDefault();
-  const imageInstance = basicLightbox.create(`<img src="${event.target.dataset.source}">`);
+
+  const imageInstance = basicLightbox.create(`<img src="${event.target.dataset.source}">`, {
+    onClose: () => {
+      document.removeEventListener('keyup', closeModal);
+    },
+  });
 
   imageInstance.show();
 
-  let visible = true;
-
-  document.addEventListener('keydown', closeModal);
+  document.addEventListener('keyup', closeModal);
 
   function closeModal(event) {
     if (event.key === 'Escape') {
       imageInstance.close();
-      document.removeEventListener('keydown', closeModal);
-      visible = false;
-    }
-
-    stopListeningKeyboard();
-  }
-
-  function stopListeningKeyboard() {
-    if (visible !== imageInstance.visible()) {
-      document.removeEventListener('keydown', closeModal);
     }
   }
 }
